@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Lista utenti:</h1>
+
+    <div id="listaUtenti"></div>
+
+</body>
+
+
+<script>
+
+    const apiUrl = 'https://jsonplaceholder.typicode.com/users'
+
+
+    function fetchUsers() {
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(users => mostraUtenti(users))
+            .catch(error => console.error('errore nel fetch', error))
+    }
+
+
+
+    function mostraUtenti(users) {
+        const listaUtenti = document.getElementById('listaUtenti')
+
+        users.forEach(user => {
+            const userDiv = document.createElement('div');
+
+            userDiv.textContent = `Nome: ${user.name}, Città: ${user.address.city}`;
+
+            listaUtenti.appendChild(userDiv);
+        });
+
+    }
+
+    window.onload = fetchUsers;
+</script>
+
+</html>
